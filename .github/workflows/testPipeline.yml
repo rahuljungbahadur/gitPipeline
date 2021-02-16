@@ -1,0 +1,34 @@
+# Name of the pipeline file
+name: testPipeline
+
+# condition on which it runs
+
+on: [push]
+
+# jobs
+
+jobs:
+# the host system on which the job runs
+runs-on: ubuntu-latest
+  # name of the job
+  test:
+    - name: checkoutRepo
+      uses: actions/checkout@v2
+      run: python testPipeline.py
+      
+  # name of the second job
+  build:
+    needs: [test]
+      # steps for this job
+      steps:
+        # checkout the repo
+        - name: checkout the repo
+          uses: actions/checkout@v2
+        # upload the artifact
+        - name: download artifact
+          uses: actions/upload-artifact@v2
+          with:
+            name: pipelineArtifact
+            path: ./
+    
+    
