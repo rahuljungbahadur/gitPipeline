@@ -9,18 +9,21 @@ on: [push]
 
 jobs:
 # the host system on which the job runs
-runs-on: ubuntu-latest
   # name of the job
   test:
-    - name: checkoutRepo
-      uses: actions/checkout@v2
-      run: python testPipeline.py
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkoutRepo
+        uses: actions/checkout@v2
+      - name: testOutput
+        run: python testPipeline.py
       
   # name of the second job
   build:
+    runs-on: ubuntu-latest
     needs: [test]
       # steps for this job
-      steps:
+    steps:
         # checkout the repo
         - name: checkout the repo
           uses: actions/checkout@v2
